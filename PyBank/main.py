@@ -85,3 +85,18 @@ with open(budget_csv) as csvfile:
     print(f"Average Change:  ${average_change}")
     print(f"Greatest Increase in Profits:  {greatest_inc_month} (${greatest_inc})")
     print(f"Greatest Decrease in Profits:  {greatest_dec_month} (${greatest_dec})")
+
+    
+    #Export text file
+    fa_file = os.path.join("Analysis", "financial_analysis.txt")
+    
+    #Create txt file
+    with open(fa_file, "w+") as outfile:
+        outfile.write("Financial Analysis\n")
+        outfile.write("----------------------\n")
+        outfile.write(f"Total Months:  {month_count}\n")
+        outfile.write(f"Total:  ${net_total}\n")
+        outfile.write(f"Average Change:  ${average_change}\n")
+        outfile.write(f"Greatest Increase in Profits:  {greatest_inc_month} (${greatest_inc})\n")
+        outfile.write(f"Greatest Decrease in Profits:  {greatest_dec_month} (${greatest_dec})\n")
+    
