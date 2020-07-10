@@ -6,11 +6,18 @@ budget_csv = os.path.join("Resources", "budget_data.csv")
 
 #Assign values to variables
 month_count = 0
-# start_profit = 0
-# end_profit = 0
-# net_total = 0
-# greatest_inc = 0
-# greates_dec = 0
+net_total = 0
+change = 0
+current_value = 0
+month_change = 0
+prev_value = 0
+months = []
+change_list = []
+average_change = 0
+total_change = 0
+total_months = 0
+greatest_inc = 0
+greatest_dec = 0
    
 #Read in the csv file
 with open(budget_csv) as csvfile:
@@ -26,43 +33,55 @@ with open(budget_csv) as csvfile:
     
         #Find number of lines
         month_count += 1
-    print(month_count)
 
+        #Find net total of profit/loss over entire period
+        net_total = net_total + int(row[1])
+   
+        #Determine average of changes in profit/loss over entire period
+        current_value = int(row[1])
+        change += current_value
 
-    #Define the function and have it accept file
-# def print_analysis(budget):
-#     date = str(budget[0])
-#     profit_loss = int(budget[1])
-  
-#     #Find number of months
-#     month_count = len(date)
-#     print(month_count)
+        #If no change, continue
+        if month_count == 1:
+            prev_value = current_value
+            continue
+    
+        #Otherwise, calculate change in value
+        else:
+            change = current_value - prev_value
 
-    #Find net total of profit/loss over entire period
-    #net_total = start profit - end profit
+            #Append to months list
+            months.append(row[0])
 
+            #Append to change list
+            change_list.append(change)
+        
+            #Set for next loop
+            prev_value = current_value
 
-    #Determine average of changes in profit/loss over entire period
-    #change = net_total / month_count
+    #Sum of change list
+    total_change = sum(change_list)
 
+    #Calculate average change over time (subtract 1 for # of changes, not months)
+    average_change = round((total_change/(month_count - 1)), 2)
+    
     #Determine greatest increase (date and amout) over entire period
-    #
+    greatest_inc = max(change_list)
+    greatest_inc_index = change_list.index(greatest_inc)  
+    greatest_inc_month = months[greatest_inc_index]
 
     #Determine greatest decrease (date and amount) over entire period
-    #
-
-
-
-
-  
+    greatest_dec = min(change_list)
+    greatest_dec_index = change_list.index(greatest_dec)
+    greatest_dec_month = months[greatest_dec_index]
 
 
    
     #Print financial analysis with all stats
-    # print("Financial Analysis")
-    # print("----------------------")
-    # print(f"Total Months:  {}")
-    # print(f"TotalL  {}")
-    # print(f"Average Change:  {}")
-    # print(f"Greatest Increase in Profits:  {}")
-    # print(f"Greates Decrease in Profits:  {}")
+    print("Financial Analysis")
+    print("----------------------")
+    print(f"Total Months:  {month_count}")
+    print(f"Total:  ${net_total}")
+    print(f"Average Change:  ${average_change}")
+    print(f"Greatest Increase in Profits:  {greatest_inc_month} (${greatest_inc})")
+    print(f"Greatest Decrease in Profits:  {greatest_dec_month} (${greatest_dec})")
