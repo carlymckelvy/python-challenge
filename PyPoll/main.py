@@ -10,16 +10,14 @@ import csv
 election_data = os.path.join("Resources", "election_data.csv")
 
 #Assign values to variables
-Voter_ID = []
-County = []
 candidate = []
+cand_votes0 = 0
+cand_votes1 = 0
+cand_votes2 = 0
+cand_votes3 = 0
 voter_count = 0
-current_row = 0
-prev_row = 0
 candidate_list = []
-Khan_votes = 0
-Correy_votes = 0
-Li_votes = 0
+
 
 
 
@@ -40,45 +38,41 @@ with open(election_data, 'r') as csvfile:
 
         #candidate_list
         candidate.append(row[2])
-        
 
+    #Find unique names within candidate list
     for new in candidate:
         if new not in candidate_list:
             candidate_list.append(new)
-    for new in candidate_list:
-        print(new)
+
+    #Count occurrence of each name within candidate list
+    for row in candidate:
+        if row == (candidate_list[0]):
+            cand_votes0 = cand_votes0 + 1
+
+        elif row == (candidate_list[1]):
+            cand_votes1 = cand_votes1 + 1
+
+        elif row == (candidate_list[2]):
+            cand_votes2 = cand_votes2 + 1
+
+        elif row == (candidate_list[3]):
+            cand_votes3 = cand_votes3 + 1
 
 
-        # current_row = str(row[2])
-        # prev_row = (current_row - 1)
+#Create list of all candidate votes
+vote_tally = [cand_votes0, cand_votes1, cand_votes2, cand_votes3]
 
-        # if row[2] == prev_row[2]:
-        #     continue
+#Convert vote numbers to percentages
 
-        # else: 
-        #     candidate_list.append(row[2])
 
- 
+#Zip candidate names and votes
+final_tally = zip(candidate_list, vote_tally)
+FINAL = dict(zip(candidate_list, vote_tally))
+
+#print(FINAL)
+
 
      
-        #Create a list of candidates who recevied votes from index 2
-        
-
-    #     #Determine total number of votes each candidate won
-    #     #For loop if index 2 = candidate name, then add to counter
-    #     #elseif = diff name, add 
-    #     if row[2] 
-
-        
-
-            
-         
-    
-
-    #Determine unique list of candidates
-
-
-    
 
     #Determine percentage of votes each candidate won
         
@@ -88,9 +82,9 @@ with open(election_data, 'r') as csvfile:
 
 
     #Print election results
-    # print("Financial Analysis")
+    # print("Election Results")
     # print("----------------------")
-    # print(f"Total Months:  {month_count}")
+    # print(f"Khan:  {Khan_votes}")
     # print(f"Total:  ${net_total}")
     # print(f"Average Change:  ${average_change}")
     # print(f"Greatest Increase in Profits:  {greatest_inc_month} (${greatest_inc})")
