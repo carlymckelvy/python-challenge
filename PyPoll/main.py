@@ -18,9 +18,6 @@ cand_votes3 = 0
 voter_count = 0
 candidate_list = []
 
-
-
-
 #Read the csv file
 with open(election_data, 'r') as csvfile:
 
@@ -63,22 +60,19 @@ with open(election_data, 'r') as csvfile:
 vote_tally = [cand_votes0, cand_votes1, cand_votes2, cand_votes3]
 
 #Convert vote numbers to percentages
+cand0 = format(round(((cand_votes0 / voter_count) * 100), 3), '.3f')
+cand1 = format(round(((cand_votes1 / voter_count) * 100), 3), '.3f')
+cand2 = format(round(((cand_votes2 / voter_count) * 100), 3), '.3f')
+cand3 = format(round(((cand_votes3 / voter_count) * 100), 3), '.3f')
 
+#Creat list of percentages
+cand_perc = [cand0, cand1, cand2, cand3]
 
-#Zip candidate names and votes
-final_tally = zip(candidate_list, vote_tally)
-FINAL = dict(zip(candidate_list, vote_tally))
+#Zip list together
+zipped = zip(candidate_list, cand_perc, vote_tally)
+FINAL = list(zipped)
 
-#print(FINAL)
-
-
-     
-
-    #Determine percentage of votes each candidate won
-        
-
-
-    #Determine winner of election based on popluar vote
+#Determine winner of election based on popluar vote
 
 
     #Print election results
