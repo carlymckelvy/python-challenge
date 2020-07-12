@@ -72,27 +72,32 @@ cand_perc = [cand0, cand1, cand2, cand3]
 zipped = zip(candidate_list, cand_perc, vote_tally)
 FINAL = list(zipped)
 
+
 #Determine winner of election based on popluar vote
+winner_vote = max(vote_tally)
+winner_ind = vote_tally.index(winner_vote)
+winner_cand = candidate_list[winner_ind]
 
 
-    #Print election results
-    # print("Election Results")
-    # print("----------------------")
-    # print(f"Khan:  {Khan_votes}")
-    # print(f"Total:  ${net_total}")
-    # print(f"Average Change:  ${average_change}")
-    # print(f"Greatest Increase in Profits:  {greatest_inc_month} (${greatest_inc})")
-    # print(f"Greatest Decrease in Profits:  {greatest_dec_month} (${greatest_dec})")
+# election results
+print("Election Results")
+print("----------------------")
+for c in FINAL:
+    print(f"{c[0]}:  {c[1]}% ({c[2]})")
+print("----------------------")
+print(f"Winner:  {winner_cand}")
+print("----------------------")
 
-    #  #Export text file
-    # fa_file = os.path.join("Analysis", "financial_analysis.txt")
-    
-    # #Create txt file
-    # with open(fa_file, "w+") as outfile:
-    #     outfile.write("Financial Analysis\n")
-    #     outfile.write("----------------------\n")
-    #     outfile.write(f"Total Months:  {month_count}\n")
-    #     outfile.write(f"Total:  ${net_total}\n")
-    #     outfile.write(f"Average Change:  ${average_change}\n")
-    #     outfile.write(f"Greatest Increase in Profits:  {greatest_inc_month} (${greatest_inc})\n")
-    #     outfile.write(f"Greatest Decrease in Profits:  {greatest_dec_month} (${greatest_dec})\n")
+
+#Export text file
+election_file = os.path.join("Analysis", "election_analysis.txt")
+
+#Create txt file
+with open(election_file, "w+") as outfile:
+    outfile.write("Election Results\n")
+    outfile.write("----------------------\n")
+    for c in FINAL:
+        outfile.write(f"{c[0]}:  {c[1]}% ({c[2]})\n")
+    outfile.write("----------------------\n")
+    outfile.write(f"Winner:  {winner_cand}\n")
+    outfile.write("----------------------\n")
